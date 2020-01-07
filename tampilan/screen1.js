@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
- 
+import FlatMap from '../komponen/flatMap'
+
 export default class Screen1 extends Component {
   //Screen1 Component
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text style={{ fontSize: 23 }}> Screen 1 </Text>
+        {/* <FlatMap id_rute={2}/> */}
       </View>
     );
   }

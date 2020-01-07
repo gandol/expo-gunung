@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import LottieView from "lottie-react-native";
-import getDirections from 'react-native-google-maps-directions'
+// import getDirections from 'react-native-google-maps-directions'
 import MapView,{Polyline,Marker} from 'react-native-maps';
 import Testing from '../komponen/Tes'
 
@@ -48,43 +48,43 @@ class MapsScreen extends React.Component {
     // this.animation.play(30, 120);
     console.log('holaaa')
   }
-  handleGetDirections = () => {
-    const data = {
-       source: {
-        latitude: -33.8356372,
-        longitude: 18.6947617
-      },
-      destination: {
-        latitude: -33.8600024,
-        longitude: 18.697459
-      },
-      params: [
-        {
-          key: "travelmode",
-          value: "driving"        // may be "walking", "bicycling" or "transit" as well
-        },
-        {
-          key: "dir_action",
-          value: "navigate"       // this instantly initializes navigation using the given travel mode
-        }
-      ],
-      waypoints: [
-        {
-          latitude: -33.8600025,
-          longitude: 18.697452
-        },
-        {
-          latitude: -33.8600026,
-          longitude: 18.697453
-        },
-           {
-          latitude: -33.8600036,
-          longitude: 18.697493
-        }
-      ]
-    }
-    getDirections(data)
-  }
+  // handleGetDirections = () => {
+  //   const data = {
+  //      source: {
+  //       latitude: -33.8356372,
+  //       longitude: 18.6947617
+  //     },
+  //     destination: {
+  //       latitude: -33.8600024,
+  //       longitude: 18.697459
+  //     },
+  //     params: [
+  //       {
+  //         key: "travelmode",
+  //         value: "driving"        // may be "walking", "bicycling" or "transit" as well
+  //       },
+  //       {
+  //         key: "dir_action",
+  //         value: "navigate"       // this instantly initializes navigation using the given travel mode
+  //       }
+  //     ],
+  //     waypoints: [
+  //       {
+  //         latitude: -33.8600025,
+  //         longitude: 18.697452
+  //       },
+  //       {
+  //         latitude: -33.8600026,
+  //         longitude: 18.697453
+  //       },
+  //          {
+  //         latitude: -33.8600036,
+  //         longitude: 18.697493
+  //       }
+  //     ]
+  //   }
+  //   getDirections(data)
+  // }
     
 
   resetAnimation = () => {
@@ -138,9 +138,9 @@ class MapsScreen extends React.Component {
           strokeWidth={6}
         />
       </MapView>
-      <View style={{position:'absolute',backgroundColor:'transparent',marginTop:'150%',marginLeft:'70%'}}>
+      {/* <View style={{position:'absolute',backgroundColor:'transparent',marginTop:'150%',marginLeft:'70%'}}>
         <Testing/>
-      </View>
+      </View> */}
 
       </View>
       // <View style={styles.animationContainer}>

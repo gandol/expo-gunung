@@ -54,7 +54,7 @@ class Tes extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}>{this.state.heading}&deg;</Text>
-        <Image source={{uri:'https://raw.githubusercontent.com/Fiordas/react-native-compass/master/assets/compass.png'}} style={{ width: 350, height: 350, transform: [{ rotate: 360 - this.state.heading + 'deg' }] }} />
+        <Image source={require('../assets/compass.png')} style={{ width: 350, height: 350, transform: [{ rotate: 360 - this.state.heading + 'deg' }] }} />
       </View>
     )
   }

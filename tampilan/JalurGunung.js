@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator, Image } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -60,7 +60,13 @@ class JalurGunung extends Component {
                         })
                     }}
                     >
-                        <Text style={styles.itemName}>{item.nama_gunung}</Text>
+                        <Image
+                        source={{uri:'https://gunung.sinudtech.web.id/public/image/'+item.gambar_gunung}}
+                        style={{width:'100%',height:'100%',resizeMode:'cover',borderRadius:5}}
+                        />
+                        <View style={styles.teksBawah}>
+                            <Text style={styles.itemName}>{item.nama_gunung}</Text>
+                        </View>
                         {/* <Text style={styles.itemCode}>{item.code}</Text> */}
                     </TouchableOpacity>
                     )}
@@ -76,13 +82,14 @@ const styles = StyleSheet.create({
       
     },
     itemContainer: {
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
       alignItems:'center',
       borderRadius: 5,
-      padding: 10,
+    //   padding: 10,
       height: 150,
-      borderColor:'black',
-      borderWidth:1,
+      elevation:5
+    //   borderColor:'black',
+    //   borderWidth:1,
 
 
     },
@@ -96,5 +103,17 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: '#fff',
     },
+    teksBawah:{
+        position:'absolute',
+        backgroundColor:'white',
+        width:'100%',
+        marginTop:110,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderBottomLeftRadius:5,
+        borderBottomRightRadius:5,
+        opacity:0.8
+    }
 });
   

@@ -4,23 +4,27 @@ import {
   createDrawerNavigator,
   createStackNavigator,
   createAppContainer,
-  SafeAreaView,DrawerItems
+  SafeAreaView,DrawerItems,
+  createMaterialTopTabNavigator
 } from 'react-navigation';
+// import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Screen1 from './tampilan/screen1';
 import JalurGunung from './tampilan/JalurGunung';
 import detailJalur from './tampilan/detailJalur'
 import jalurMap from './tampilan/Mapscreen'
+import ruteMap from './tampilan/rute'
 import KompasScreen from './tampilan/Kompas'
 import Perlengkapan from './tampilan/Perlengkapan'
 import Screen3 from './tampilan/screen1';
 import Icon from 'react-native-vector-icons/Entypo'
 
+import perlengkapanKelompok from './tampilan/perlengkapan/kelompok'
 
 class NavigationDrawerStructure extends Component {
   constructor(props){
     super();
-    global.apiUrl='http://gunung.sinudtech.web.id/public/'
+    global.apiUrl='https://gunung.sinudtech.web.id/'
   }
 
 
@@ -82,10 +86,14 @@ const jalur_gunung = createStackNavigator({
     screen:detailJalur,
   },
   ruteMap:{
-    screen:jalurMap
+    screen:ruteMap
   }
 });
-
+const perlengkapan_tab = createMaterialTopTabNavigator({
+  kelompok:{
+    screen:perlengkapanKelompok
+  }
+})
 const kompas = createStackNavigator({
   kompas: {
     screen: KompasScreen,
@@ -107,7 +115,7 @@ const kompas = createStackNavigator({
     screen:detailJalur,
   },
   ruteMap:{
-    screen:jalurMap
+    screen:ruteMap
   }
 });
 const perlengkapan = createStackNavigator({

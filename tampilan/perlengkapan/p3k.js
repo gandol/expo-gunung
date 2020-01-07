@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View,Text,StyleSheet,FlatList, ActivityIndicator,Image} from "react-native";
+import { View,Text,StyleSheet,FlatList, ActivityIndicator, Image} from "react-native";
 
-class Kelompok extends Component {
+class P3k extends Component {
     constructor(props){
         super();
         this.state={
@@ -16,7 +16,7 @@ class Kelompok extends Component {
     }
     ambildataPerlengkapan=async()=>{
         let data        = new FormData();
-        data.append('kelompok','kelompok');
+        data.append('kelompok','p3k');
 
         let postData = {
             method:'POST',
@@ -54,7 +54,7 @@ class Kelompok extends Component {
                     data={this.state.dataPerlengkapan}
                     renderItem={({ item }) => 
                         <View style={{height:80,margin:10,padding:10,elevation:5,backgroundColor:'white',flexDirection:'row',borderRadius:10}}>
-                            <Image 
+                             <Image 
                             style={{height:'100%',width:60,borderRadius:30,resizeMode:'cover'}}
                             source={{uri:'https://raw.githubusercontent.com/Fiordas/react-native-compass/master/assets/compass.png'}}
                             />
@@ -71,7 +71,7 @@ class Kelompok extends Component {
         );
     }
 }
-export default Kelompok;
+export default P3k;
 
 const styles = StyleSheet.create({
     container: {
