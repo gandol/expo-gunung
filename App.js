@@ -7,7 +7,6 @@ import {
   SafeAreaView,DrawerItems,
   createMaterialTopTabNavigator
 } from 'react-navigation';
-// import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import Screen1 from './tampilan/screen1';
 import JalurGunung from './tampilan/JalurGunung';
@@ -16,7 +15,10 @@ import jalurMap from './tampilan/Mapscreen'
 import ruteMap from './tampilan/rute'
 import KompasScreen from './tampilan/Kompas'
 import Perlengkapan from './tampilan/Perlengkapan'
+import ViewMpas from './tampilan/maps/viewMaps'
+import DetailTips from './tampilan/tips/detailtips'
 import Screen3 from './tampilan/screen1';
+
 import Icon from 'react-native-vector-icons/Entypo'
 
 import perlengkapanKelompok from './tampilan/perlengkapan/kelompok'
@@ -87,8 +89,45 @@ const jalur_gunung = createStackNavigator({
   },
   ruteMap:{
     screen:ruteMap
+  },
+  infoMap:{
+    screen:ViewMpas,
+    navigationOptions: ({ navigation }) => ({
+      title: 'View',
+      headerStyle: {
+        backgroundColor: '#FF9800',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: { 
+        textAlign:"center", 
+        flex:1 ,
+        marginLeft:-45,
+      }
+    })
   }
 });
+const tips_gunung = createStackNavigator({
+  home: {
+    screen: DetailTips,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      title: 'Tips Gunung',
+      headerStyle: {
+        backgroundColor: '#FF9800',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: { 
+        textAlign:"center", 
+        flex:1 ,
+        marginLeft:-45,
+      }
+    }),
+    detailTips:{
+        screen:DetailTips
+    }
+  },
+});
+
 const perlengkapan_tab = createMaterialTopTabNavigator({
   kelompok:{
     screen:perlengkapanKelompok
@@ -178,7 +217,7 @@ const DrawerNavigatorExample = createDrawerNavigator({
     },
   },
   Screen4: {
-    screen: Screen3_StackNavigator,
+    screen: tips_gunung,
     navigationOptions: {
       drawerLabel: 'Tips Mendaki',
     },

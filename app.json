@@ -6,19 +6,18 @@
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "android": {
-      "package": "com.yourcompany.yourappname"
+      "package": "com.gdarma.gunung"
     },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/gmbr.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#A9CF46"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

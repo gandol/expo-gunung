@@ -9,88 +9,83 @@ class MapsScreen extends React.Component {
   constructor(props){
     super();
     this.state={
-      markers: [{
-        title: 'Titik pertama',
-        coordinates: {
-          latitude:  -7.304514,
-          longitude: 109.226386
-        },
-      },
-      {
-        title: 'Titik kedua',
-        coordinates: {
-          latitude: -7.304663,
-          longitude: 109.225077
-        },  
-      }
-    ],
-    polylines: [
-      {
-        id:1,
-        coordinates: {
-          latitude:  -7.304514,
-          longitude: 109.226386
-        },
-      },
-      {
-        id:1,
-        coordinates: {
-          latitude:  -7.304514,
-          longitude: 109.226386
-        },
-      }
-    ],
+      markers: [],
+      initialRegion:null,
+      polylines: [],
+      markerBaru:[],
+      selesai:false
 
     }
   }
   componentDidMount() {
-    // Or set a specific startFrame and endFrame with:
-    // this.animation.play(30, 120);
-    console.log('holaaa')
+    this.ambilRute();
+    setInterval(() => {
+      if(!this.state.isLoading && !this.state.selesai){
+        this.setState({
+          selesai:true
+        })
+        this.map.fitToElements(true);
+      }
+    }, 1000);
   }
-  // handleGetDirections = () => {
-  //   const data = {
-  //      source: {
-  //       latitude: -33.8356372,
-  //       longitude: 18.6947617
-  //     },
-  //     destination: {
-  //       latitude: -33.8600024,
-  //       longitude: 18.697459
-  //     },
-  //     params: [
-  //       {
-  //         key: "travelmode",
-  //         value: "driving"        // may be "walking", "bicycling" or "transit" as well
-  //       },
-  //       {
-  //         key: "dir_action",
-  //         value: "navigate"       // this instantly initializes navigation using the given travel mode
-  //       }
-  //     ],
-  //     waypoints: [
-  //       {
-  //         latitude: -33.8600025,
-  //         longitude: 18.697452
-  //       },
-  //       {
-  //         latitude: -33.8600026,
-  //         longitude: 18.697453
-  //       },
-  //          {
-  //         latitude: -33.8600036,
-  //         longitude: 18.697493
-  //       }
-  //     ]
-  //   }
-  //   getDirections(data)
-  // }
-    
+  ambilRute=async()=>{
+    let id_rute = this.props.id_rute;
+    let formpost    = new FormData();
+    formpost.append('id_rute',id_rute);
 
-  resetAnimation = () => {
-    this.animation.reset();
-    this.animation.play();
-  };
+    let dataposting ={
+        method:'POST',
+        body:formpost
+    }
+    fetch(global.apiUrl+'api/v1/rute_detail',dataposting)
+    .then((respon)=>{
+        if(respon.ok){
+            respon.json().then((responseJson)=>{
+                if(responseJson.status==200 && responseJson.message=='Success'){
+                    let data = [];
+                    let poli = [];
+                    responseJson.data.map(datajson=>{
+                      data.push({
+                        title:datajson.pos,
+                        coordinates:{
+                          latitude:parseFloat(datajson.lat),
+                          longitude:parseFloat(datajson.lon),
+                        }
+                      })
+                      poli.push({
+                          latitude:parseFloat(datajson.lat),
+                          longitude:parseFloat(datajson.lon),
+                      })
+                      
+                      if(datajson.pos.toLowerCase()=='start'){
+                        let initialRegion={
+                          latitude:parseFloat(datajson.lat),
+                          longitude:parseFloat(datajson.lon),
+                          latitudeDelta: 0.022,
+                          longitudeDelta: 0.021,
+                        }
+                        this.setState({
+                          initialRegion:initialRegion
+                        })
+                      }
+                    })
+                    this.setState({
+                        isLoading:false,
+                        markers:data,
+                        polylines:poli
+                        
+                    })
+                }
+            })
+
+        }else{
+            this.setState({
+                isLoading: false,
+            })
+        }
+    })
+  }
+
 
   render() {
     return (
@@ -98,12 +93,8 @@ class MapsScreen extends React.Component {
       <View style={{flex:1}}>
       <MapView 
         style={{flex:1}}
-        initialRegion={{
-          latitude: -7.305333,
-          longitude: 109.225721,
-          latitudeDelta: 0.0022,
-          longitudeDelta: 0.0021,
-        }}
+        ref={ref => { this.map = ref; }}
+        initialRegion={this.state.initialRegion}
       >
         {this.state.markers.map(marker => (
           <Marker 
@@ -118,14 +109,7 @@ class MapsScreen extends React.Component {
           />
         ))}
         <Polyline
-          coordinates={[
-            { latitude: -7.305333, longitude: 109.225721 },
-            { latitude:-7.304514, longitude: 109.226386 },
-            // { latitude: 37.7665248, longitude: -122.4161628 },
-            // { latitude: 37.7734153, longitude: -122.4577787 },
-            // { latitude: 37.7948605, longitude: -122.4596065 },
-            // { latitude: 37.8025259, longitude: -122.4351431 }
-          ]}
+          coordinates={this.state.polylines}
           strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
           strokeColors={[
             '#7F0000',

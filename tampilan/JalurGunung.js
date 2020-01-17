@@ -27,7 +27,6 @@ class JalurGunung extends Component {
                             isLoading:false,
                             datagunung:responseJson.data
                         })
-                        console.log(responseJson);
                     }
                 })
 

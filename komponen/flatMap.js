@@ -27,7 +27,6 @@ class FlatMap extends Component {
             if(respon.ok){
                 respon.json().then((responseJson)=>{
                     if(responseJson.status==200 && responseJson.message=='Success'){
-                        console.log(responseJson)
                         this.setState({
                             isLoading:false,
                             ruteFlatdata:responseJson.data
@@ -44,29 +43,46 @@ class FlatMap extends Component {
     }
     render() {
 
-        const dataPeta = this.state.ruteFlatdata
-        const RenderData = dataPeta.slice(1,dataPeta.length)
-        
+        const dataPeta      = this.state.ruteFlatdata
+        const RenderData    = dataPeta.slice(1,dataPeta.length)
         return (
             this.state.isLoading
             ?   <ActivityIndicator/>
             :
                 <View style={styles.container}>
-                    {RenderData.slice(0).reverse().map(data=>(
-                        <View style={styles.panjang}>
-                            <View style={styles.bulat}>
-                                <Text style={{position:'absolute',width:100,marginLeft:25}}>{data.pos}</Text>
-                            </View>
-                        </View>
-                    ))}
-                    <View style={styles.panjang}>
-                        <View style={styles.bulat}>
-                            <Text style={{position:'absolute',width:100,marginLeft:25}}>{this.state.ruteFlatdata[0].pos}</Text>
-                        </View>
-                        <View style={styles.bulatstart}>
-                            <Text style={{position:'absolute',width:100,marginLeft:25}}>Start</Text>
-                        </View>
-                    </View>
+                    {dataPeta.reverse().map((data,number)=>{
+                        if(number%2==0){
+                            return(
+                                <View style={styles.base}>
+                                    <View style={styles.panjang}>
+                                        <View style={styles.bulat}>
+                                            <View style={{position:'absolute',width:120,marginLeft:10,alignItems:'flex-start',transform:[{ rotate: '-35deg' }],marginTop:-40}}>
+                                                <Text>{data.pos}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+        
+                                </View>
+                            )
+                        }else{
+                                return(
+                                    <View style={styles.baseBalik}>
+                                        <View style={styles.panjang}>
+                                            <View style={styles.bulat}>
+                                                <View style={{position:'absolute',width:120,marginLeft:-120,alignItems:'flex-end',transform:[{ rotate: '30deg' }],marginTop:-40}}>
+                                                    <Text>{data.pos}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+            
+                                    </View>
+                                )
+                        }
+                        
+                        
+                    }
+                    )
+                    }
                 </View>
         );
     }
@@ -82,7 +98,7 @@ const styles = StyleSheet.create({
     panjang:{
         backgroundColor:'black',
         width:10,
-        height:80
+        height:100,
     },
     bulat:{
         backgroundColor:'green',
@@ -99,5 +115,24 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginLeft:-5,
         marginTop:60
+    },
+    base:{
+        height:100,
+        width:100,
+        alignItems:'center',
+        transform:[
+            // { perspective: 850 },
+            { rotate: '35deg' }
+        ],
+    },
+    baseBalik:{
+        height:100,
+        width:100,
+        alignItems:'center',
+        transform:[
+            { rotate: '-30deg' }
+        ],
+        marginTop:-13,
+        marginBottom:-10,
     }
 });

@@ -32,7 +32,6 @@ class Individu extends Component {
                             isLoading:false,
                             dataPerlengkapan:responseJson.data
                         })
-                        console.log(responseJson);
                     }
                 })
 
@@ -56,7 +55,7 @@ class Individu extends Component {
                         <View style={{height:80,margin:10,padding:10,elevation:5,backgroundColor:'white',flexDirection:'row',borderRadius:10}}>
                             <Image 
                             style={{height:'100%',width:60,borderRadius:30,resizeMode:'cover'}}
-                            source={{uri:'https://raw.githubusercontent.com/Fiordas/react-native-compass/master/assets/compass.png'}}
+                            source={{uri:'https://gunung.sinudtech.web.id/public/image/'+item.gambar_perlengkapan}}
                             />
 
                             <View style={{marginLeft:15}}>
